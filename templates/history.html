@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mood History</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+  <h1>Your Mood History</h1>
+  <canvas id="moodChart" width="600" height="300"></canvas>
+
+  <script>
+    const ctx = document.getElementById('moodChart').getContext('2d');
+    const moodLabels = ['Very Sad', 'Sad', 'Neutral', 'Happy', 'Very Happy'];
+    const moodValues = {
+      'Very Sad': 1,
+      'Sad': 2,
+      'Neutral': 3,
+      'Happy': 4,
+      'Very Happy': 5
+    };
+
+    const rawMoods = {{ moods|tojson }};
+    const numericMoods = rawMoods.map(m => {
+      const cleaned = m.replace(/[^\w\s]/gi, "").trim();
+      return moodValues[cleaned] || 3;
+    });
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: {{ dates|tojson }},
+        datasets: [{
+          label: 'Mood Over Time',
+          data: numericMoods,
+          borderColor: 'blue',
+          fill: false,
+          tension: 0.4
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            min: 1,
+            max: 5,
+            ticks: {
+              callback: val => moodLabels[val - 1],
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+  </script>
+  <a href="/">⬅ Back</a>
+</body>
+</html>

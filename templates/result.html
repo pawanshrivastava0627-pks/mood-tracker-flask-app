@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mood Result</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="background-color: {{ color | default('#ffffff') }} important;">
+  <div class="container">
+    <h1>Your Mood is: {{ mood | default('Unknown') }}</h1>
+    <p><em>{{ message | default('No message available.') }}</em></p>
+    <blockquote>{{ text | default('No text available.') }}</blockquote>
+    <a href="/">⬅ Back</a> 
+    <a href="/history">📊 View Mood History</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emotion Detector</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>How are you feeling today?</h1>
+    <form method="POST">
+      <textarea name="journal" rows="5" placeholder="Write about your day..."></textarea><br><br>
+      <button type="submit">Detect Mood</button>
+    </form>
+    <br>
+    <a href="/history">📊 View Mood History</a>
+  </div>
+</body>
+</html>
